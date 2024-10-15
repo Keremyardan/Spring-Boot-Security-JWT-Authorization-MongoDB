@@ -1,9 +1,14 @@
-FROM eclipse-temurin:23-jdk-alpine
+# OpenJDK 17 imajını kullan
+FROM openjdk:17-jdk-slim
 
-WORKDIR /app
+# Çalışma dizinini ayarla (burada /app yerine başka bir dizin ismi kullanabilirsiniz)
+WORKDIR /usr/src/app
 
-COPY target/nosql-auth.jar nosql-auth.jar
+# JAR dosyasını kopyala
+COPY target/nosql-auth-0.0.1-SNAPSHOT.jar ./nosql-auth.jar
 
-ENTRYPOINT ["java", "-jar", "/app/nosql-auth.jar"]
+# Uygulamayı çalıştır
+ENTRYPOINT ["java", "-jar", "nosql-auth.jar"]
 
+# Portu aç
 EXPOSE 8080
