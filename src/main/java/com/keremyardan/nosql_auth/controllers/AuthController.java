@@ -1,7 +1,9 @@
 package com.keremyardan.nosql_auth.controllers;
 
 import com.keremyardan.nosql_auth.dto.request.LoginRequest;
+import com.keremyardan.nosql_auth.dto.request.SignUprequest;
 import com.keremyardan.nosql_auth.dto.response.JwtResponse;
+import com.keremyardan.nosql_auth.dto.response.MessageResponse;
 import com.keremyardan.nosql_auth.repository.RoleRepository;
 import com.keremyardan.nosql_auth.repository.UserRepository;
 import com.keremyardan.nosql_auth.security.jwt.JwtUtils;
@@ -59,5 +61,12 @@ public class AuthController {
                userDetails.getEmail(),
                roles
        ));
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUprequest signUprequest) {
+        if (userRepository.existsByUserName(signUprequest.getUsername())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Username is already taken!"));
+        }
     }
 }
