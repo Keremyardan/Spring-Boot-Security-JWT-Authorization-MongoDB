@@ -23,4 +23,7 @@ public class JwtResponse {
     private String email;
 
     private List<String> roles;
+
+    public JwtResponse(String jwt, String id, String username, String email, List<String> roles) {
+    }
 }
