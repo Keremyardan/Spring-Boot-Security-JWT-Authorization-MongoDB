@@ -2,14 +2,15 @@ package com.keremyardan.nosql_auth.security.jwt;
 
 import com.keremyardan.nosql_auth.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
-
+import org.springframework.beans.factory.annotation.Value;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.Value;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.security.Key;
 import java.util.Base64;
