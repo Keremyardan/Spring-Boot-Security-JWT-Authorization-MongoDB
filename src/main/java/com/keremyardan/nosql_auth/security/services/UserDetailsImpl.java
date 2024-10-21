@@ -16,12 +16,12 @@ public class UserDetailsImpl implements UserDetails {
 
     private static final long serialVersionUTD = 1L;
 
-    @Getter
+
     private String id;
 
     private String username;
 
-    @Getter
+
     private String email;
 
     @JsonIgnore
@@ -97,6 +97,16 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+
+
+    public String getEmail() {
+        return email;
     }
 
 
