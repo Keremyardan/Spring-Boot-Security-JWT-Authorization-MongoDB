@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "+", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -40,7 +40,7 @@ public class AuthController {
     RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    PasswordEncoder encoder;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -79,7 +79,7 @@ public class AuthController {
                     .badRequest().body(new MessageResponse("Email is already in use!"));
         }
         User user = new User(signUprequest.getEmail(), signUprequest.getUsername(),
-                passwordEncoder.encode(signUprequest.getPassword()));
+                encoder.encode(signUprequest.getPassword()));
 
         Set<String> strRoles = signUprequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -92,13 +92,13 @@ public class AuthController {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin" :
-                        Role adminrole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Role has not found!"));
-                        roles.add(adminrole);
+                        roles.add(adminRole);
                         break;
-                    case "mod" : Role modrole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                    case "mod" : Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                             .orElseThrow(() -> new RuntimeException("Role has not found"));
-                        roles.add(modrole);
+                        roles.add(modRole);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
